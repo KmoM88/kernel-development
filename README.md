@@ -5,7 +5,7 @@ Este proyecto tiene como objetivo ser una guía introductoria para aprender y ex
 
 ## Índice
 
-1. **Fundamentos esenciales**  
+1. **[Fundamentos esenciales](./1-fundamentos-esenciales.md)** 
    - ¿Qué es el kernel de Linux y cómo se estructura?  
    - Monolítico vs microkernel  
    - Kernel space vs user space  
