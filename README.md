@@ -1,4 +1,4 @@
-# kernel-development
+# Kernel Development
 Guía de introducción al desarrollo sobre el kernel de Linux
 
 Este proyecto tiene como objetivo ser una guía introductoria para aprender y explorar el desarrollo sobre el kernel de Linux. A continuación, se presenta el índice de los temas que se abordarán:
