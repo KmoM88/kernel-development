@@ -147,7 +147,7 @@ Dentro de "General setup" activamos "Initial RAM filesystem and RAM disk (initra
 Activamos la opción de 64 bits
 ![menuconfig-64bit](img/menuconfig-64bit.png)
 
-Activamos dentro de "Executable file formats" el soporte para ```#!```
+Activamos dentro de "Executable file formats" el soporte para ```#!``` y elf
 ![menuconfig-shebang](img/menuconfig-shebang.png)
 
 Activamos el soporte para serial 8250/16550 y la consola compatible en serial port
