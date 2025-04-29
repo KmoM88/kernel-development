@@ -180,7 +180,7 @@ Lo pude resolver agregando getty al build de busybox y al init
 make o=$OUTPUT_DIR menuconfig
 ```
 
-Dentro de "Login/Passwords" activamos "getty"
+Dentro de "Login/Passwords Management Utilities" activamos "getty"
 
 ![busybox-getty](img/busybox-getty.png)
 
