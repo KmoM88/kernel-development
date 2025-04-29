@@ -174,7 +174,14 @@ En mi caso encontré el siguiente inconveniente:
 ~ #
 ```
 
-Lo pude resolver agregando getty al build de busybox y al init
+Cuando BusyBox lanza su shell (sh) sin tener acceso a un TTY válido, muestra ese mensaje. El shell está corriendo, pero:
+
+- No puede controlar trabajos (job control: ```fg```, ```bg```, ```Ctrl+Z```).
+- No puede hacer redirección de entrada/salida con consola real.
+- Esto sucede cuando no se asigna un terminal interactivo (como ```/dev/tty```).
+
+
+Para resolverlo resolver agregando getty al build de busybox y al init
 
 ```bash
 make o=$OUTPUT_DIR menuconfig
@@ -189,6 +196,27 @@ Dentro del directorio de initramfs editamos el init copiamos el nuevo binario de
 cp /home/$USER/busybox-1.37.0/build/busybox bin/busybox
 ```
 
+getty (get terminal) es un programa que se encarga de gestionar una consola física o virtual. Hace tres cosas importantes:
+
+1. Abre el dispositivo ```/dev/ttyS0```, /```dev/tty1```, etc.
+2. Asocia el TTY a una sesión de login.
+3. Ejecuta un programa como ```login``` o ```sh```, ya conectado al TTY.
+
+Esto garantiza que el shell tenga:
+
+- Entrada estándar (```stdin```)
+- Salida estándar (```stdout```)
+- TTY asignado
+- Job control funcional
+
+creamos en el directorio de initramfs el directorio dev y creamos los nodos de dispositivo necesarios para getty
+
+```bash
+mkdir dev
+sudo mknod -m 622 dev/console c 5 1
+sudo mknod -m 666 dev/tty c 5 0
+```
+
 Agregamomos en el menuconfig del kernel el soporte para devtmpfs
 
 ```bash
@@ -198,13 +226,6 @@ make O=$LINUX_BUILD_DIR menuconfig
 Dentro de "Devices Drivers" activamos "devtmpfs filesystem support" y "automount devtmpfs at /dev"
 
 ![menuconfig-devtmpfs](img/menuconfig-devtmpfs.png)
-
-creamos en el directorio de initramfs el directorio dev y creamos los nodos de dispositivo
-```bash
-mkdir dev
-sudo mknod -m 622 dev/console c 5 1
-sudo mknod -m 666 dev/tty c 5 0
-```
 
 Y editamos el init para montar el devtmpfs, ejecutar getty y dar mensaje al inicio.
 
