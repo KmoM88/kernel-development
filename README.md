@@ -15,7 +15,7 @@ Este proyecto tiene como objetivo ser una guía introductoria para aprender y ex
      - Sistemas de archivos  
      - Controladores de dispositivos (drivers)  
 
-2. **Entorno de desarrollo**  
+2. **[Entorno de desarrollo](./2-entorno-de-desarrollo.md)**
    - Preparar un entorno seguro (máquina virtual o Raspberry Pi)  
    - Descargar y compilar el kernel  
    - Obtener el código: [git.kernel.org](https://git.kernel.org)  
