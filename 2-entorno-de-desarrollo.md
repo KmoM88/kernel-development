@@ -91,7 +91,7 @@ Podemos verificar el binario de busybox con
 ls -la $OUTPUT_DIR --block-size=KB | grep busybox
 ```
 
-### 7. Crear un nitrarfs
+### 7. Crear un initramfs
 
 Crearemos un sistema de archivos raíz inicial (initramfs) utilizando BusyBox.
 
