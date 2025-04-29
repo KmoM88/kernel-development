@@ -235,7 +235,12 @@ qemu-system-x86_64 -kernel $LINUX_BUILD_DIR/arch/x86/boot/bzImage -nographic -ap
 
 Si todo salió bien, deberías ver el prompt de BusyBox.
 ```bash
-/ # 
+/ # ls
+bin                       init                      sbin
+custom-initramfs.cpio.gz  linuxrc                   sys
+dev                       proc                      usr
+etc                       root
+~ # 
 ```
 
 Y podremos navegar por el filesystem de nuestro sistema minimo.
