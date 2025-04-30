@@ -5,7 +5,7 @@ Este proyecto tiene como objetivo ser una guía introductoria para aprender y ex
 
 ## Índice
 
-1. **[Fundamentos esenciales](./1-fundamentos-esenciales.md)**  
+1. **[Fundamentos esenciales](./01-fundamentos-esenciales.md)**  
    - ¿Qué es el kernel de Linux y cómo se estructura?  
    - Monolítico vs microkernel  
    - Kernel space vs user space  
@@ -18,7 +18,7 @@ Este proyecto tiene como objetivo ser una guía introductoria para aprender y ex
      - Ver la versión del kernel con `uname -r` y `/proc/version`  
      - Usar `strace` para analizar llamadas al sistema  
 
-2. **[Entorno de desarrollo](./2-entorno-de-desarrollo.md)**  
+2. **[Entorno de desarrollo](./02-entorno-de-desarrollo.md)**  
    - Preparar un entorno seguro (máquina virtual o Raspberry Pi)  
    - Descargar y compilar el kernel desde el repositorio oficial  
    - Configurar el kernel con `menuconfig`  
@@ -29,7 +29,7 @@ Este proyecto tiene como objetivo ser una guía introductoria para aprender y ex
      - Crear un archivo `init` para el initramfs  
      - Ejecutar el kernel con el initramfs en QEMU  
 
-3. **[Módulos del kernel](./3-modulos-del-kernel.md)**  
+3. **[Módulos del kernel](./03-modulos-del-kernel.md)**  
    - Crear un módulo básico (`hello.c`)  
    - Crear un `Makefile` para compilar el módulo  
    - Recompilar el kernel con soporte para módulos  
