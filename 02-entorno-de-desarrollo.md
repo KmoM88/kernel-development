@@ -13,7 +13,7 @@ Primero, instalaremos las herramientas necesarias para compilar el kernel y ejec
 sudo apt update
 sudo apt install -y build-essential libncurses-dev bison flex libssl-dev libelf-dev qemu-system gcc make gdb cscope
 ```
-
+---
 ### 2. Descargar el código fuente del kernel
 
 Descargaremos el código fuente del kernel desde el repositorio oficial y nos moveremos a la rama del último tag estable.
@@ -26,7 +26,7 @@ git checkout v6.14
 ```
 
 v6.14 es un ejemplo, puedes usar la última versión estable.
-
+---
 ### 3. Configuración del kernel
 
 Primero limpiamos cualquier configuración previa:
@@ -42,13 +42,13 @@ make O=$LINUX_BUILD_DIR allnoconfig
 make O=$LINUX_BUILD_DIR menuconfig
 ```
 Por el momento dejamos la configuración por defecto y salimos.
-
+---
 ### 4. Compilación del kernel
 Compilamos el kernel y los módulos. Esto puede tardar un tiempo dependiendo de tu máquina.
 ```bash
 make -j$(nproc)
 ```
-
+---
 ### 5. Ejecutar el kernel en QEMU
 
 Para ejecutar el kernel compilado en QEMU:
@@ -56,7 +56,7 @@ Para ejecutar el kernel compilado en QEMU:
 qemu-system-x86_64 -kernel $LINUX_BUILD_DIR/arch/x86/boot/bzImage -nographic -append "earlyprintk=serial,ttyS0 console=ttyS0"
 ```
  Inicialmente, esto generará un ***kernel panic*** porque no hay un sistema de archivos raíz. Para salir de quemu puedes usar `Ctrl + A` seguido de `X`.
-
+---
 ### 6. Descargar y compilar BusyBox
 
 BusyBox es una herramienta que proporciona un conjunto de utilidades Unix en un solo ejecutable. Lo usaremos como sistema de archivos raíz.
@@ -90,7 +90,7 @@ Podemos verificar el binario de busybox con
 ```bash
 ls -la $OUTPUT_DIR --block-size=KB | grep busybox
 ```
-
+---
 ### 7. Crear un initramfs
 
 Crearemos un sistema de archivos raíz inicial (initramfs) utilizando BusyBox.
@@ -132,7 +132,7 @@ Con ```cpio``` creamos el initramfs
 ```bash
 find . -print0 | cpio --null --create --verbose --format=newc | gzip --best > ./custom-initramfs.cpio.gz
 ```
-
+---
 ### 8. Recompilar el kernel con soporte para initramfs
 
 Para que el kernel reconozca el initramfs, debemos recompilarlo con soporte para initramfs. Activaremos también otras opciones.

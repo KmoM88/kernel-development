@@ -2,7 +2,7 @@
 
 ## Objetivo
 Comprender qué es el kernel, cómo se relaciona con el resto del sistema, y conocer su estructura básica.
-
+---
 ### 1. ¿Qué es el kernel de Linux?
 El kernel es el núcleo del sistema operativo. Es responsable de:
 - Gestionar procesos y memoria.
@@ -15,7 +15,7 @@ Abre una terminal y ejecuta:
 uname -r      # Muestra la versión del kernel
 cat /proc/version
 ```
-
+---
 ### 2. Espacio de usuario vs espacio del kernel
 - **User space**: Donde corren los programas comunes (bash, Firefox, etc).
 - **Kernel space**: Donde corre el kernel y sus módulos/drivers.
@@ -59,7 +59,7 @@ Muestra cuánto tarda cada llamada al sistema, útil para detectar cuellos de bo
 ```bash
 strace -c ls
 ```
-
+---
 ### 3. Arquitectura básica del kernel
 
 Explora los principales componentes:
@@ -78,11 +78,11 @@ git clone https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/
 ```
 
 Navega las carpetas y usa `tree` o `ls` para explorar.
-
+---
 ### 4. Tipos de kernels
 - **Monolítico**: Todo el sistema (incluyendo drivers) corre en modo kernel. Ej: Linux.
 - **Microkernel**: Solo el núcleo básico corre en kernel space. Ej: Minix, QNX.
-
+---
 ### 5. Versión del kernel
 
 Linux tiene versiones:
