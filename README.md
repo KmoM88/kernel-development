@@ -5,7 +5,7 @@ Este proyecto tiene como objetivo ser una guía introductoria para aprender y ex
 
 ## Índice
 
-1. **[Fundamentos esenciales](./1-fundamentos-esenciales.md)** 
+1. **[Fundamentos esenciales](./1-fundamentos-esenciales.md)**  
    - ¿Qué es el kernel de Linux y cómo se estructura?  
    - Monolítico vs microkernel  
    - Kernel space vs user space  
@@ -14,22 +14,31 @@ Este proyecto tiene como objetivo ser una guía introductoria para aprender y ex
      - Gestión de memoria  
      - Sistemas de archivos  
      - Controladores de dispositivos (drivers)  
+   - Ejercicios prácticos:  
+     - Ver la versión del kernel con `uname -r` y `/proc/version`  
+     - Usar `strace` para analizar llamadas al sistema  
 
-2. **[Entorno de desarrollo](./2-entorno-de-desarrollo.md)**
+2. **[Entorno de desarrollo](./2-entorno-de-desarrollo.md)**  
    - Preparar un entorno seguro (máquina virtual o Raspberry Pi)  
-   - Descargar y compilar el kernel  
-   - Obtener el código: [git.kernel.org](https://git.kernel.org)  
-   - Compilar y bootear con tu kernel  
-   - Introducción al Makefile del kernel  
-   - Herramientas útiles:  
-     - `gcc`, `make`, `gdb`, `qemu`, `cscope`, `ctags`  
+   - Descargar y compilar el kernel desde el repositorio oficial  
+   - Configurar el kernel con `menuconfig`  
+   - Compilar y bootear con tu kernel usando QEMU  
+   - Crear un sistema de archivos raíz inicial (initramfs) con BusyBox  
+   - Ejercicios prácticos:  
+     - Configurar y compilar BusyBox como binario estático  
+     - Crear un archivo `init` para el initramfs  
+     - Ejecutar el kernel con el initramfs en QEMU  
 
-3. **Primeros pasos prácticos**  
-   - Leer código fuente del kernel (por ejemplo, `/kernel/sched/`, `/mm/`, `/drivers/`)  
-   - Crear un módulo del kernel simple  
-     - `hello_world.ko`  
-     - Uso de `insmod`, `rmmod`, `dmesg`  
-   - Comunicación entre kernel y user space (`printk`, `/proc`, `/sys`)  
+3. **[Módulos del kernel](./3-modulos-del-kernel.md)**  
+   - Crear un módulo básico (`hello.c`)  
+   - Crear un `Makefile` para compilar el módulo  
+   - Recompilar el kernel con soporte para módulos  
+   - Compilar el módulo y generar el archivo `.ko`  
+   - Instalar el módulo en el initramfs  
+   - Cargar y descargar el módulo en QEMU  
+   - Ejercicios prácticos:  
+     - Usar `insmod`, `rmmod`, `lsmod` y `modinfo` para gestionar módulos  
+     - Verificar mensajes del módulo con `dmesg`
 
 4. **Desarrollo de módulos**  
    - Hooks y puntos de extensión del kernel  
