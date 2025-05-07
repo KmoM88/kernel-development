@@ -1,7 +1,7 @@
 # Módulo 3: Módulos del kernel
 
 ## Objetivo
-Aprender a crear, compilar, instalar y cargar módulos en el kernel mínimo generado en el capitulo anterior.
+Aprender a crear, compilar, instalar y cargar módulos en el kernel mínimo generado en el capítulo anterior.
 
 ---
 
@@ -118,6 +118,133 @@ lsmod
 
 ---
 
-### 7. Resumen
+### 7. Cargar y probar el módulo `proc_example`
 
-En este módulo, aprendiste a crear un módulo básico, compilarlo, instalarlo en el initramfs y cargarlo en el kernel mínimo. Esto te permite extender la funcionalidad del kernel de manera modular.
+El módulo [`proc_example.c`](03-modulos-del-kernel/proc_example.c) crea una entrada en el sistema de archivos `/proc` llamada `proc_example`. Este archivo permite leer información desde el espacio de usuario, lo que es útil para interactuar con el kernel. Recuerda que el módulo `proc_example` debe ser compilado y copiado al initramfs de la misma manera que hiciste con `hello.c`.
+
+#### Cargar el módulo
+Dentro del sistema mínimo, carga el módulo:
+```bash
+insmod /lib/modules/proc_example.ko
+```
+
+Verifica que el módulo esté cargado:
+```bash
+lsmod
+```
+
+#### Leer del archivo `/proc/proc_example`
+Usa el comando `cat` para leer la información proporcionada por el módulo:
+```bash
+cat /proc/proc_example
+```
+
+#### Descargar el módulo
+Descarga el módulo:
+```bash
+rmmod proc_example
+```
+
+Verifica que se haya descargado:
+```bash
+lsmod
+```
+---
+
+### 8. Cargar y probar el módulo `dev_example`
+
+El módulo [`dev_example.c`](03-modulos-del-kernel/dev_example.c) implementa un controlador de dispositivo de carácter. Este módulo permite interactuar con el kernel mediante operaciones de lectura y escritura desde el espacio de usuario. Recuerda que el módulo `dev_example` debe ser compilado y copiado al initramfs de la misma manera que hiciste con `hello.c`.
+
+#### Cargar el módulo
+Dentro del sistema mínimo, carga el módulo:
+```bash
+insmod /lib/modules/dev_example.ko
+```
+
+Verifica que el módulo esté cargado:
+```bash
+lsmod
+```
+
+Lee los datos del dispositivo:
+```bash
+cat /dev/dev_example
+```
+
+#### Descargar el módulo
+Descarga el módulo:
+```bash
+rmmod dev_example
+```
+
+Verifica que se haya descargado:
+```bash
+lsmod
+```
+---
+
+### 9. Cargar y probar el módulo `netlink_example`
+
+El módulo [`netlink_example.c`](03-modulos-del-kernel/netlink_example.c) implementa una interfaz de comunicación entre el espacio de usuario y el espacio del kernel utilizando sockets Netlink. Para probar este módulo, también utilizaremos un programa de usuario llamado [`netlink_example_user.c`](03-modulos-del-kernel/netlink_example_user.c).
+
+Se debe recompilar el kernel con soporte para Netlink. Asegúrate de que el kernel tenga habilitado el soporte para Netlink. Puedes verificarlo en la configuración del kernel (`.config`) buscando la opción `CONFIG_NETLINK`.
+
+![menuconfig-netlink1](img/menuconfig-netlink1.png)
+![menuconfig-netlink2](img/menuconfig-netlink2.png)
+
+
+#### Cargar el módulo
+Dentro del sistema mínimo, carga el módulo:
+```bash
+insmod /lib/modules/netlink_example.ko
+```
+
+Verifica que el módulo esté cargado:
+```bash
+lsmod
+```
+
+#### Compilar el programa de usuario
+Compila el programa de usuario de forma estática en tu sistema anfitrión:
+```bash
+gcc -o netlink_example_user netlink_example_user.c -static
+```
+
+Copia el binario al initramfs para que esté disponible dentro del sistema mínimo:
+```bash
+cp netlink_example_user /home/$USER/initramfs/usr/bin/
+```
+
+Actualiza el initramfs:
+```bash
+cd /home/$USER/initramfs
+find . -print0 | cpio --null --create --verbose --format=newc | gzip --best > ./custom-initramfs.cpio.gz
+```
+
+#### Ejecutar el programa de usuario
+Dentro del sistema mínimo, ejecuta el programa de usuario para interactuar con el módulo:
+```bash
+/usr/bin/netlink_example_user
+```
+
+Verifica los mensajes intercambiados entre el espacio de usuario y el kernel utilizando:
+```bash
+dmesg | tail -n 20
+```
+
+#### Descargar el módulo
+Descarga el módulo:
+```bash
+rmmod netlink_example
+```
+
+Verifica que se haya descargado:
+```bash
+lsmod
+```
+
+---
+
+### 10. Resumen
+
+En este módulo, aprendiste a trabajar con módulos avanzados como controladores de dispositivos de carácter y sockets Netlink. También exploraste cómo interactuar con el kernel desde el espacio de usuario utilizando programas personalizados.
